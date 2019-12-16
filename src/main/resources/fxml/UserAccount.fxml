@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+
+<BorderPane prefHeight="535.0" prefWidth="670.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <BorderPane BorderPane.alignment="CENTER">
+         <center>
+            <AnchorPane prefHeight="400.0" prefWidth="179.0" stylesheets="@style.css">
+               <children>
+                  <AnchorPane layoutY="193.0" prefHeight="200.0" prefWidth="28.0" />
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="35.0" layoutX="-1.0" layoutY="176.0" prefHeight="50.0" prefWidth="180.0" text="library">
+                     <graphic>
+                        <FontAwesomeIcon iconName="BOOK" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="35.0" layoutX="-1.0" layoutY="247.0" prefHeight="50.0" prefWidth="180.0" text="Button 3">
+                     <graphic>
+                        <FontAwesomeIcon />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="35.0" layoutX="-1.0" layoutY="326.0" prefHeight="50.0" prefWidth="180.0" text="Settings" AnchorPane.topAnchor="326.0">
+                     <graphic>
+                        <FontAwesomeIcon iconName="COG" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" graphicTextGap="35.0" layoutX="-1.0" layoutY="105.0" prefHeight="50.0" prefWidth="180.0" text="Your books">
+                     <graphic>
+                        <FontAwesomeIcon iconName="USER" />
+                     </graphic>
+                  </JFXButton>
+                  <FontAwesomeIcon fill="#39c61c" fontSmoothingType="LCD" iconName="BOOKMARK" layoutX="62.0" layoutY="511.0" size="5EM">
+                     <stroke>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop color="#39c41df2" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </stroke></FontAwesomeIcon>
+               </children>
+            </AnchorPane>
+         </center>
+         <left>
+            <AnchorPane prefHeight="400.0" prefWidth="39.0" style="-fx-background-color: #bfbfbf;" BorderPane.alignment="CENTER">
+               <effect>
+                  <GaussianBlur />
+               </effect>
+            </AnchorPane>
+         </left>
+      </BorderPane>
+   </left>
+   <center>
+      <BorderPane prefHeight="596.0" prefWidth="497.0" style="-fx-background-color: #302929;" BorderPane.alignment="CENTER">
+         <center>
+            <AnchorPane prefHeight="611.0" prefWidth="428.0" style="-fx-background-color: #302929;">
+               <children>
+                  <SplitPane dividerPositions="0.0935" orientation="VERTICAL" prefHeight="611.0" prefWidth="488.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="486.0" style="-fx-background-color: #302929;">
+                           <children>
+                              <JFXButton alignment="CENTER_RIGHT" layoutX="385.0" layoutY="11.0" text="Lpg out" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="489.0" prefWidth="549.0">
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <TabPane prefHeight="537.0" prefWidth="484.0" tabClosingPolicy="UNAVAILABLE">
+                                      <tabs>
+                                        <Tab text="See general info">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="587.0">
+                                                   <children>
+                                                      <Label layoutX="14.0" layoutY="34.0" text="Number of books on your shelf" />
+                                                      <Label layoutX="14.0" layoutY="70.0" text="Last added books" />
+                                                      <GridPane layoutX="14.0" layoutY="105.0" prefHeight="114.0" prefWidth="500.0">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                      </GridPane>
+                                                      <Label layoutX="14.0" layoutY="254.0" text="Top rated book by you" />
+                                                      <GridPane layoutX="14.0" layoutY="291.0" prefHeight="114.0" prefWidth="500.0">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                      </GridPane>
+                                                      <Label layoutX="14.0" layoutY="426.0" text="Author who's book you read most often: " />
+                                                      <Label layoutX="301.0" layoutY="426.0" text="Last added books" />
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                        <Tab text="Add new book">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                          </content>
+                                        </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

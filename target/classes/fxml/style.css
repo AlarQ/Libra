@@ -16,9 +16,9 @@
 .button
 {
     -fx-background-color:
-        #c3c4c4,
-        linear-gradient(#d6d6d6 50%, white 100%),
-        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+       black,
+        linear-gradient( #33cc33 50%, #85e085 100%),
+        radial-gradient(center 50% -40%, radius 200%,  #33cc33 45%, rgba(230,230,230,0) 50%);
     -fx-background-radius: 30;
     -fx-background-insets: 0,1,1;
     -fx-text-fill: black;
@@ -28,6 +28,6 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 1;
 }

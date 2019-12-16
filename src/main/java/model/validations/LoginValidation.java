@@ -1,7 +1,7 @@
-package Model.validations;
+package model.validations;
 
-import Model.Elements.Book;
-import Model.Elements.User;
+import model.elements.Book;
+import model.elements.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -38,8 +38,7 @@ public class LoginValidation
                 .configure()
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Book.class)
-                .buildSessionFactory())
-        {
+                .buildSessionFactory()) {
             //get a new session and start a transaction
             Session session = factory.getCurrentSession();
             session.beginTransaction();
@@ -50,11 +49,9 @@ public class LoginValidation
                     "' AND u.password='" + password + "'")
                     .getResultList();
 
-            try
-            {
+            try {
                 actualUser = result.get(0);
-            } catch (IndexOutOfBoundsException e)
-            {
+            } catch (IndexOutOfBoundsException e) {
                 System.out.println("No match in database");
             }
             System.out.println(result.size());

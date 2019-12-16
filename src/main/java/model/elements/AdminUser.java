@@ -1,4 +1,4 @@
-package Model.Elements;
+package model.elements;
 
 public class AdminUser extends User
 {
