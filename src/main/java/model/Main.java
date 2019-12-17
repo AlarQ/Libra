@@ -25,13 +25,12 @@ public class Main extends Application
         System.out.println("***********************************************************************");
 
         Book book1 = new Book();
-        book1.setTitle("c");
-
+        book1.setTitle("f");
         Book book2 = new Book();
-        book2.setTitle("d");
+        book2.setTitle("f");
 
         User user = new User();
-        user.setLogin("2");
+        user.setLogin("f");
 
         BookUser bookUser = new BookUser();
 

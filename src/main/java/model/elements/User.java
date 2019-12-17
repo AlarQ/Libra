@@ -23,7 +23,11 @@ public class User
 
     public void addUser()
     {
-
+        Session session = HibernateUtil.getSession();
+        Transaction tx = session.beginTransaction();
+        session.save(this);
+        tx.commit();
+        session.close();
     }
 
     public boolean doesUserExist()
@@ -49,6 +53,17 @@ public class User
         if (books == null)
             books = new ArrayList<>();
 
+    }
+
+    public User()
+    {
+    }
+
+    public User(String login, String password, String email)
+    {
+        this.login = login;
+        this.password = password;
+        this.email = email;
     }
 
     @OneToMany(

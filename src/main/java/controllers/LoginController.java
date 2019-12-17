@@ -1,4 +1,4 @@
-package controller;
+package controllers;
 
 import model.Main;
 import model.validations.LoginValidation;
@@ -43,29 +43,9 @@ public class LoginController implements Initializable
 
     }
 
-    public void login(ActionEvent event) throws SQLException, IOException
+    public void createAccount(ActionEvent event) throws IOException
     {
-        /**
-         if (loginModel.isValidLogin(txtUserName.getText(), txtPassword.getText()))
-         {
-         isConnected.setText("Successful ");
-         Stage primaryStage = new Stage();
-         ((Node) event.getSource()).getScene().getWindow().hide();
-         FXMLLoader loader = new FXMLLoader();
-         Pane root = loader.load(getClass().getResource("/fxml/User.fxml").openStream());
-         UserController userController = (UserController) loader.getController();
-         userController.setLblUser("Welcome " + txtUserName.getText() + "!");
-         primaryStage.setTitle("User Window");
-         primaryStage.setScene(new Scene(root));
-         primaryStage.show();
-         } else
-         isConnected.setText("login or/and password are not valid!");
-         */
-    }
-
-    public void register(ActionEvent event) throws IOException
-    {
-        Stage primaryStage = new Stage();
+        Stage primaryStage = Main.getPrimaryStage();
         FXMLLoader loader = new FXMLLoader();
         Pane root = loader.load(getClass().getResource("/fxml/Registration.fxml").openStream());
         primaryStage.setTitle("User Window");
@@ -76,17 +56,21 @@ public class LoginController implements Initializable
         primaryStage.show();
     }
 
-    public void loginButtonClicked() throws IOException
+    public void loginButtonClicked() throws IOException, SQLException
     {
-        Stage primaryStage = Main.getPrimaryStage();
-        FXMLLoader loader = new FXMLLoader();
-        Pane root = loader.load(getClass().getResource("/fxml/UserAccount.fxml").openStream());
-        primaryStage.setTitle("User Window");
-        Scene scene = new Scene(root);
-        String css = LoginController.class.getResource("/fxml/style.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        if (LoginValidation.isValidLogin(txtUserName.getText(), txtPassword.getText()))
+        {
+            Stage primaryStage = Main.getPrimaryStage();
+            FXMLLoader loader = new FXMLLoader();
+            Pane root = loader.load(getClass().getResource("/fxml/UserAccount.fxml").openStream());
+            primaryStage.setTitle("User Window");
+            Scene scene = new Scene(root);
+            String css = LoginController.class.getResource("/fxml/style.css").toExternalForm();
+            scene.getStylesheets().add(css);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } else
+            isConnected.setText("Incorrect login and/or password");
     }
 
     public LoginValidation getLoginModel()

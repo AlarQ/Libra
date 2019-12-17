@@ -1,7 +1,6 @@
-package model.validations;
+package validations;
 
 import model.HibernateUtil;
-import model.elements.Book;
 import model.elements.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoginValidation
@@ -32,21 +32,20 @@ public class LoginValidation
 
     public static boolean isValidLogin(String userName, String password) throws SQLException
     {
-        //create SessionFactory
-        //file name is optional if it is the same like "hibernate.cfg.xml"
-        List<User> result;
+        List<User> result = new ArrayList();
 
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
-        result = session.createQuery("FROM User u " +
+        //checking for given user
+        result = (session.createQuery("FROM User u " +
                 "WHERE u.login='" + userName +
                 "' AND u.password='" + password + "'")
-                .getResultList();
+                .getResultList());
 
         try
         {
-            actualUser = result.get(0);
+            actualUser = (User) result.get(0);
         } catch (IndexOutOfBoundsException e)
         {
             System.out.println("No match in database");
@@ -54,9 +53,9 @@ public class LoginValidation
         System.out.println(result.size());
 
         System.out.println(actualUser);
-
-        //commit transaction
         session.getTransaction().commit();
         return result.size() != 0;
+
     }
+
 }

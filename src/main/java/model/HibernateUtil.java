@@ -29,13 +29,16 @@ public class HibernateUtil
     public static Session getSession() throws HibernateException
     {
         Session session = null;
-        try {
+        try
+        {
             session = sessionFactory.openSession();
-        } catch (Throwable t) {
+        } catch (Throwable t)
+        {
             System.out.println("Exception while getting session.. ");
             t.printStackTrace();
         }
-        if (session == null) {
+        if (session == null)
+        {
             System.out.println("session is discovered null");
         }
         return session;
