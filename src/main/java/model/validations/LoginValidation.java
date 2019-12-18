@@ -32,9 +32,7 @@ public class LoginValidation
 
     public static boolean isValidLogin(String userName, String password) throws SQLException
     {
-        //create SessionFactory
-        //file name is optional if it is the same like "hibernate.cfg.xml"
-        List<User> result;
+        List result;
 
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
@@ -46,7 +44,7 @@ public class LoginValidation
 
         try
         {
-            actualUser = result.get(0);
+            actualUser = (User) result.get(0);
         } catch (IndexOutOfBoundsException e)
         {
             System.out.println("No match in database");

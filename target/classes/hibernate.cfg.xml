@@ -19,11 +19,11 @@
         </property>
 
         <property name="hibernate.connection.username">
-            librarian
+            root
         </property>
 
         <property name="hibernate.connection.password">
-            libra
+            root
         </property>
 
 

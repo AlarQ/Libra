@@ -18,7 +18,7 @@ public class User
     private String password;
     private String email;
     private Date addDate;
-
+    private Byte admin;
     private List<BookUser> books;
 
     public void addUser()
@@ -28,13 +28,12 @@ public class User
         session.save(this);
         tx.commit();
         session.close();
+        System.out.println("user added");
     }
 
     public boolean doesUserExist()
     {
-        if (getUser(this.userId) == null)
-            return false;
-        return true;
+        return getUser(this.userId) != null;
     }
 
     public static User getUser(int id)
@@ -47,6 +46,23 @@ public class User
 
         return user;
     }
+
+    public static User getUserByEmail(String email)
+    {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("FROM User u " +
+                "WHERE u.email=:email");
+        query.setParameter("email", email);
+        List result = query.getResultList();
+
+        session.getTransaction().commit();
+        if (!result.isEmpty())
+            return (User) result.get(0);
+        else return null;
+    }
+
 
     public void addBook(Book book)
     {
@@ -64,6 +80,8 @@ public class User
         this.login = login;
         this.password = password;
         this.email = email;
+        this.addDate = new Date();
+        this.admin = 0;
     }
 
     @OneToMany(
@@ -81,6 +99,12 @@ public class User
     public int getUserId()
     {
         return userId;
+    }
+
+    @Column(name = "admin")
+    public Byte getAdmin()
+    {
+        return admin;
     }
 
     @Column(name = "email")
@@ -135,6 +159,11 @@ public class User
     public void setBooks(List<BookUser> books)
     {
         this.books = books;
+    }
+
+    public void setAdmin(Byte admin)
+    {
+        this.admin = admin;
     }
 
     @Override

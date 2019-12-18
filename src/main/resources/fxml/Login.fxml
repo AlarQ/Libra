@@ -7,56 +7,41 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="background" prefHeight="327.0" prefWidth="371.0" stylesheets="@style.css"
-            xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.LoginController">
+<AnchorPane fx:id="background" prefHeight="327.0" prefWidth="371.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
     <children>
-        <Label fx:id="isConnected" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" prefHeight="47.0"
-               prefWidth="222.0" stylesheets="@style.css" text="Sign in" textAlignment="CENTER" textFill="#fdfcfc"
-               AnchorPane.bottomAnchor="280.0" AnchorPane.topAnchor="0.0">
+        <Label fx:id="isConnected" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" prefHeight="47.0" prefWidth="222.0" stylesheets="@style.css" text="Sign in" textAlignment="CENTER" textFill="#fdfcfc" AnchorPane.bottomAnchor="280.0" AnchorPane.topAnchor="0.0">
             <font>
-                <Font name="Arial" size="14.0"/>
+                <Font name="Arial" size="14.0" />
             </font>
         </Label>
-        <Button fx:id="btnLogin" alignment="CENTER" layoutX="75.0" layoutY="190.0" mnemonicParsing="false"
-                onAction="#loginButtonClicked" prefHeight="31.0" prefWidth="101.0" text="Login" textAlignment="CENTER"
-                textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" AnchorPane.leftAnchor="75.0"
-                AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="190.0">
+        <Button fx:id="btnLogin" alignment="CENTER" layoutX="75.0" layoutY="190.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="31.0" prefWidth="101.0" text="Login" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="190.0">
             <font>
-                <Font name="Arial" size="17.0"/>
+                <Font name="Arial" size="17.0" />
             </font>
         </Button>
-        <TextField fx:id="txtUserName" layoutX="69.0" layoutY="55.0" prefHeight="40.0" prefWidth="233.0"
-                   promptText="Uder Name" AnchorPane.bottomAnchor="232.0" AnchorPane.leftAnchor="69.0"
-                   AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="55.0">
+        <TextField fx:id="txtUserName" layoutX="69.0" layoutY="55.0" prefHeight="40.0" prefWidth="233.0" promptText="Uder Name" AnchorPane.bottomAnchor="232.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="55.0">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </TextField>
-        <PasswordField fx:id="txtPassword" layoutX="69.0" layoutY="124.0" prefHeight="40.0" prefWidth="233.0"
-                       promptText="Password" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="69.0"
-                       AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="124.0">
+        <PasswordField fx:id="txtPassword" layoutX="69.0" layoutY="124.0" prefHeight="40.0" prefWidth="233.0" promptText="Password" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="69.0" AnchorPane.topAnchor="124.0">
             <font>
-                <Font size="15.0"/>
+                <Font size="15.0" />
             </font>
         </PasswordField>
         <Label fx:id="lblRegister" layoutX="30.0" layoutY="281.0" text="Are you new?">
             <font>
-                <Font size="14.0"/>
+                <Font size="14.0" />
             </font>
         </Label>
-        <Button fx:id="btnRegister" alignment="CENTER" layoutX="153.0" layoutY="280.0" mnemonicParsing="false"
-                onAction="#createAccount" prefHeight="23.0" prefWidth="117.0" text="Create account"
-                textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="14.0"
-                AnchorPane.topAnchor="280.0">
+        <Button fx:id="btnRegister" alignment="CENTER" layoutX="153.0" layoutY="280.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="23.0" prefWidth="117.0" text="Create account" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="153.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="280.0">
             <font>
-                <Font name="Arial" size="14.0"/>
+                <Font name="Arial" size="14.0" />
             </font>
         </Button>
-        <Button fx:id="btnRegister1" alignment="CENTER" layoutX="108.0" layoutY="235.0" mnemonicParsing="false"
-                text="Forget login or password?" textAlignment="CENTER" textFill="WHITE">
+        <Button fx:id="btnRegister1" alignment="CENTER" layoutX="108.0" layoutY="235.0" mnemonicParsing="false" onAction="#retrievePassword" text="Forget login or password?" textAlignment="CENTER" textFill="WHITE">
             <font>
-                <Font name="Arial" size="14.0"/>
+                <Font name="Arial" size="14.0" />
             </font>
         </Button>
     </children>

@@ -1,7 +1,11 @@
 package model.validations;
 
+import model.HibernateUtil;
 import model.elements.User;
 import org.apache.commons.validator.EmailValidator;
+import org.hibernate.Session;
+
+import java.util.List;
 
 public class RegistrationValidation
 {
@@ -9,8 +13,7 @@ public class RegistrationValidation
     {
         if (user.getPassword().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"))
             return true;
-        else
-        {
+        else {
             System.out.println("Password isn't valid");
             /*
             111asAS#aa
@@ -34,6 +37,7 @@ public class RegistrationValidation
             System.out.println("Email isn't valid");
         return false;
     }
+
 
 
 }

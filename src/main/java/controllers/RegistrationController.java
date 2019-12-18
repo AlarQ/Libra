@@ -8,8 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.elements.User;
-import validations.LoginValidation;
-import validations.RegistrationValidation;
+import model.validations.LoginValidation;
+import model.validations.RegistrationValidation;
 
 import java.net.URL;
 import java.sql.SQLException;

@@ -56,6 +56,24 @@ public class LoginController implements Initializable
         primaryStage.show();
     }
 
+    public void retrievePassword()
+    {
+        Stage primaryStage = Main.getPrimaryStage();
+        FXMLLoader loader = new FXMLLoader();
+        Pane root = null;
+        try {
+            root = loader.load(getClass().getResource("/fxml/RetrievePassword.fxml").openStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        primaryStage.setTitle("User Window");
+        Scene scene = new Scene(root);
+        String css = LoginController.class.getResource("/fxml/style.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
     public void loginButtonClicked() throws IOException, SQLException
     {
         if (LoginValidation.isValidLogin(txtUserName.getText(), txtPassword.getText()))

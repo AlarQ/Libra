@@ -1,9 +1,9 @@
 package controllers_t;
 
 import model.HibernateUtil;
+import model.validations.LoginValidation;
 import org.junit.Assert;
 import org.junit.Test;
-import validations.LoginValidation;
 
 import java.sql.SQLException;
 
