@@ -18,11 +18,9 @@ public class LoginControllerTest
     {
         String login = "a";
         String pass = "b";
-        try
-        {
-            Assert.assertEquals(true, LoginValidation.isValidLogin(login, pass));
-        } catch (SQLException e)
-        {
+        try {
+            Assert.assertTrue(LoginValidation.isValidLogin(login, pass));
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

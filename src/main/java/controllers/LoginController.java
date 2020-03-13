@@ -5,13 +5,14 @@ import model.validations.LoginValidation;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import windows_launchers.AppViewHandler;
+import windows_launchers.ViewHandler;
 
 
 import java.io.IOException;
@@ -19,23 +20,16 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable
+public class LoginController extends AbstractController
 {
     private LoginValidation loginModel = new LoginValidation();
 
-    @FXML
-    private Label isConnected;
-    @FXML
-    private TextField txtUserName;
-    @FXML
-    private TextField txtPassword;
-    @FXML
-    private Label lblRegister;
-    @FXML
-    private Button btnRegister;
-    @FXML
-    private Button btnLogin;
-
+    @FXML private Label isConnected;
+    @FXML private TextField txtUserName;
+    @FXML private TextField txtPassword;
+    @FXML private Label lblRegister;
+    @FXML private Button btnRegister;
+    @FXML private Button btnLogin;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -45,51 +39,28 @@ public class LoginController implements Initializable
 
     public void createAccount(ActionEvent event) throws IOException
     {
-        Stage primaryStage = Main.getPrimaryStage();
-        FXMLLoader loader = new FXMLLoader();
-        Pane root = loader.load(getClass().getResource("/fxml/Registration.fxml").openStream());
-        primaryStage.setTitle("User Window");
-        Scene scene = new Scene(root);
-        String css = LoginController.class.getResource("/fxml/style.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        new AppViewHandler().launchRegisterWindow();
     }
 
-    public void retrievePassword()
+    public void retrievePassword() throws IOException
     {
-        Stage primaryStage = Main.getPrimaryStage();
-        FXMLLoader loader = new FXMLLoader();
-        Pane root = null;
-        try {
-            root = loader.load(getClass().getResource("/fxml/RetrievePassword.fxml").openStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        primaryStage.setTitle("User Window");
-        Scene scene = new Scene(root);
-        String css = LoginController.class.getResource("/fxml/style.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        new AppViewHandler().launchRetrieveWindow();
     }
+
 
     public void loginButtonClicked() throws IOException, SQLException
     {
-        if (LoginValidation.isValidLogin(txtUserName.getText(), txtPassword.getText()))
-        {
-            Stage primaryStage = Main.getPrimaryStage();
-            FXMLLoader loader = new FXMLLoader();
-            Pane root = loader.load(getClass().getResource("/fxml/UserAccount.fxml").openStream());
-            primaryStage.setTitle("User Window");
-            Scene scene = new Scene(root);
-            String css = LoginController.class.getResource("/fxml/style.css").toExternalForm();
-            scene.getStylesheets().add(css);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+        if (LoginValidation.isValidLogin(txtUserName.getText(), txtPassword.getText())) {
+            new AppViewHandler().launchUserWindow();
         } else
             isConnected.setText("Incorrect login and/or password");
     }
+
+    public LoginController(ViewHandler viewHandler)
+    {
+        super(viewHandler);
+    }
+
 
     public LoginValidation getLoginModel()
     {

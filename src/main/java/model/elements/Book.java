@@ -3,9 +3,6 @@ package model.elements;
 import model.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,11 +25,21 @@ public class Book
     private float rating;
     private Date firstDate;
     private List<BookUser> users;
-
+    private int numberOfReaders;
     public void addUser(User user)
     {
         if (users == null)
             users = new ArrayList<>();
+
+        BookUser bookUser = new BookUser(this, user);
+        users.add(bookUser);
+    }
+
+    //check!!!!!!!!!
+    public void update(float rating)
+    {
+        float sum = this.rating*numberOfReaders++;
+        this.rating = (sum+rating)/(numberOfReaders);
     }
 
     public void addBook()
@@ -44,8 +51,23 @@ public class Book
         session.close();
     }
 
+    public static boolean isBookExistByTitle(String title)
+    {
+        Session session = HibernateUtil.getSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("FROM Book b " +
+                "WHERE b.title=:title");
+        query.setParameter("title", title);
+        List result = query.getResultList();
+
+        session.getTransaction().commit();
+        return !result.isEmpty();
+    }
+
     @OneToMany(
-            mappedBy = "book"
+            mappedBy = "book",
+            fetch = FetchType.EAGER
     )
     public List<BookUser> getUsers()
     {
@@ -114,6 +136,45 @@ public class Book
         return firstDate;
     }
 
+    @Column(name = "readers")
+    public int getNumberOfReaders()
+    {
+        return numberOfReaders;
+    }
+
+    public Book()
+    {
+    }
+
+    public Book(String author, String title, String publisher, int yearOfPublication,
+                String genre, String ISBN, String cover, float rating)
+    {
+        this.author = author;
+        this.title = title;
+        this.publisher = publisher;
+        this.genre = genre;
+        this.cover = cover;
+        this.yearOfPublication = yearOfPublication;
+        this.ISBN = ISBN;
+        this.rating = rating;
+        this.firstDate = new Date();
+        this.numberOfReaders = 1;
+    }
+
+    public Book(String author, String title, String publisher, String genre, String cover, int yearOfPublication, String ISBN)
+    {
+        this.author = author;
+        this.title = title;
+        this.publisher = publisher;
+        this.genre = genre;
+        this.cover = cover;
+        this.yearOfPublication = yearOfPublication;
+        this.ISBN = ISBN;
+        this.rating = 0;
+        this.firstDate = new Date();
+        this.numberOfReaders = 0;
+    }
+
     public void setPublisher(String publisher)
     {
         this.publisher = publisher;
@@ -169,11 +230,16 @@ public class Book
         this.author = author;
     }
 
+    public void setNumberOfReaders(int numberOfReaders)
+    {
+        this.numberOfReaders = numberOfReaders;
+    }
+
     @Override
     public String toString()
     {
         return "Book{" +
-                "id=" + bookId +
+                "bookId=" + bookId +
                 ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", publisher='" + publisher + '\'' +
@@ -181,7 +247,9 @@ public class Book
                 ", cover='" + cover + '\'' +
                 ", yearOfPublication=" + yearOfPublication +
                 ", ISBN='" + ISBN + '\'' +
-                ", users=" + users +
+                ", rating=" + rating +
+                ", firstDate=" + firstDate +
+                ", numberOfReaders=" + numberOfReaders +
                 '}';
     }
 
@@ -191,6 +259,7 @@ public class Book
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
+        if(this.ISBN == book.ISBN) return true;
         return bookId == book.bookId &&
                 yearOfPublication == book.yearOfPublication &&
                 Float.compare(book.rating, rating) == 0 &&

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="background" prefHeight="327.0" prefWidth="371.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+<AnchorPane fx:id="background" prefHeight="327.0" prefWidth="371.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
     <children>
         <Label fx:id="isConnected" alignment="CENTER" contentDisplay="CENTER" layoutX="74.0" prefHeight="47.0" prefWidth="222.0" stylesheets="@style.css" text="Sign in" textAlignment="CENTER" textFill="#fdfcfc" AnchorPane.bottomAnchor="280.0" AnchorPane.topAnchor="0.0">
             <font>
@@ -29,7 +29,7 @@
                 <Font size="15.0" />
             </font>
         </PasswordField>
-        <Label fx:id="lblRegister" layoutX="30.0" layoutY="281.0" text="Are you new?">
+        <Label fx:id="lblRegister" layoutX="30.0" layoutY="281.0" style="-fx-text-fill: white;" text="Are you new?" textFill="#ffffff03">
             <font>
                 <Font size="14.0" />
             </font>

@@ -1,6 +1,11 @@
 package model.elements;
 
+import model.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,7 +16,18 @@ public class BookUser
     private int id;
     private Book book;
     private User user;
-    private Date date = new Date();
+    private Date date;
+    private float rating;
+
+    public void saveBookUser()
+    {
+        Session session = HibernateUtil.getSession();
+        Transaction tx = session.beginTransaction();
+        System.out.println(this.getDate());
+        session.save(this);
+        tx.commit();
+        session.close();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +37,8 @@ public class BookUser
         return id;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id")
     public Book getBook()
     {
@@ -42,6 +59,35 @@ public class BookUser
         return date;
     }
 
+    @Column(name = "rating")
+    public float getRating()
+    {
+        return rating;
+    }
+
+    public BookUser()
+    {
+        this.rating = -1;
+        this.date = new Date();
+    }
+
+    public BookUser(Book book, User user)
+    {
+        this.book = book;
+        this.user = user;
+        this.date = new Date();
+        System.out.println("bookUserDate" + date);
+    }
+
+    public BookUser(Book book, User user, float rating)
+    {
+        this.book = book;
+        this.user = user;
+        this.date = new Date();
+        System.out.println("bookuser date "+date);
+        this.rating = rating;
+    }
+
     public void setId(int id)
     {
         this.id = id;
@@ -60,6 +106,11 @@ public class BookUser
     public void setDate(Date addDate)
     {
         this.date = addDate;
+    }
+
+    public void setRating(float rating)
+    {
+        this.rating = rating;
     }
 
     @Override

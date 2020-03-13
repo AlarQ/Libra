@@ -1,9 +1,9 @@
 .root
 {
-    -fx-background-color: #302929;
+    -fx-background-color:#302929;
         -fx-alignment: left ;
         -fx-padding: 0 ;
-        -fx-text-color: white;
+        -fx-text-color: black;
         -fx-text-family: Arial Black;
 }
 
@@ -28,6 +28,31 @@
 .label {
     -fx-font-size:14pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
     -fx-opacity: 1;
+    -fx-text-fill: black
+    ;
+}
+
+#lblName
+{
+    -fx-text-fill: green;
+     -fx-font-family: "Arial Black";
+    -fx-font: bold 35px "Serif";
+    -fx-alignment: CENTER;
+    -fx-border-color: rgb(49, 89, 23);
+     -fx-border-radius: 24;
+     -fx-border-width: 5;
+}
+
+#lblEmail
+{
+    -fx-text-fill: white;
+}
+
+#lblRegister{ -fx-text-fill: white;}
+#isConnected{ -fx-text-fill: white;}
+
+#tvLibrary
+{
+    -fx-text-fill: black;
 }

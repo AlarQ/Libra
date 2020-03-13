@@ -23,8 +23,9 @@
         </property>
 
         <property name="hibernate.connection.password">
-            root
+            rootty
         </property>
+
 
 
     </session-factory>

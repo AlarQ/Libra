@@ -1,23 +1,19 @@
 package model;
 
-import org.hibernate.*;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.elements.*;
-import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import windows_launchers.AppViewHandler;
 
-import javax.persistence.EntityManager;
-import javax.xml.crypto.dsig.TransformService;
-import java.util.Date;
-
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class Main extends Application
 {
     private static Stage primaryStage;
+    private static String css;
+    public static Properties properties = new Properties();
 
     public static void main(String[] args)
     {
@@ -25,21 +21,46 @@ public class Main extends Application
         System.out.println("***********************************************************************");
 
         launch(args);
+        initProperties();
+        System.out.println(properties.getProperty("path.image"));
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception
+    public void start(Stage prStage) throws Exception
     {
-        this.primaryStage = primaryStage;
+        this.primaryStage = prStage;
+        new AppViewHandler()
+                .launchLoginWindow();
 
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-        System.out.println("show");
+    }
+
+    public static void initProperties()
+    {
+        try {
+            String fileName = "src/main/resources/config.properties";
+            InputStream input =
+                    new FileInputStream(fileName);
+            if (input == null) {
+                System.out.println("unable to find "+fileName);
+            }
+            properties.load(input);
+        }catch (IOException ex)
+        {
+            ex.printStackTrace();
+        }
     }
 
     public static Stage getPrimaryStage()
     {
         return primaryStage;
     }
+
+    public static void setCss(String css_)
+    {
+        css = css_;
+    }
+
+    public static String getCss(){return css;}
+
+
 }

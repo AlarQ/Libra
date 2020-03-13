@@ -1,5 +1,6 @@
 package model.validations;
 
+import controllers.UserController;
 import model.HibernateUtil;
 import model.elements.Book;
 import model.elements.User;
@@ -42,19 +43,18 @@ public class LoginValidation
                 "' AND u.password='" + password + "'")
                 .getResultList();
 
-        try
-        {
+        try {
             actualUser = (User) result.get(0);
-        } catch (IndexOutOfBoundsException e)
-        {
+            UserController.setActualUser(actualUser);
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("No match in database");
         }
         System.out.println(result.size());
-
         System.out.println(actualUser);
 
-        //commit transaction
         session.getTransaction().commit();
+        session.close();
+
         return result.size() != 0;
     }
 }
