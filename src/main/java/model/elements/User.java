@@ -35,8 +35,6 @@ public class User
                 Date v1 = e1.getValue();
                 Date v2 = e2.getValue();
                 return v2.compareTo(v1);
-
-
             }
         };
 
@@ -174,9 +172,12 @@ public class User
 
     public boolean isOwned(Book book)
     {
-        for (BookUser b : books)
-            if (b.getBook().equals(book))
+        books = this.getBooks();
+        for (BookUser b : books) {
+            //change it using equals
+            if (b.getBook().getISBN().equals(book.getISBN()))
                 return true;
+        }
         return false;
     }
 

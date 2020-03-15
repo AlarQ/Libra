@@ -19,9 +19,11 @@ public class Main extends Application
     {
         HibernateUtil.loadSessionFactory();
         System.out.println("***********************************************************************");
+        initProperties();
+        System.out.println(properties.getProperty("path.image"));
 
         launch(args);
-        initProperties();
+
         System.out.println(properties.getProperty("path.image"));
     }
 

@@ -95,9 +95,9 @@ public class UserController extends AbstractController
         lblNumberOfBooks.setText(Integer.toString(actualUser.retNumberOfBooks()));
         lblFavAuthor.setText(actualUser.retFavoriteAuthor());
         actualUser.lastAddedBooks();
-        //showLastAddedBooks();
+        showLastAddedBooks();
         actualUser.topRatedBooks();
-      //showTopRatedByYou();
+      showTopRatedByYou();
 
     }
 
@@ -157,15 +157,26 @@ public class UserController extends AbstractController
         for (int i = 0; i < result.size(); i++) {
             Book book = result.get(i);
             Button button = new Button("Add book");
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
+            button.setOnAction(new EventHandler<ActionEvent>()
+            {
+                @Override
+                public void handle(ActionEvent e)
+                {
                     System.out.println("adding book.....");
-                    if (!(actualUser.isOwned(book)))
-                      {
-                          actualUser.addBook(book);
-                      }
-                }});
-
+                    if (!actualUser.isOwned(book))
+                    {
+                        BookUser bookUser = new BookUser(book, actualUser, 5);
+                        try
+                        {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException ex)
+                        {
+                            ex.printStackTrace();
+                        }
+                        bookUser.saveBookUser();
+                    }
+                }
+            });
             LibraryTable libTab = new LibraryTable(book.getAuthor(),
                     book.getTitle(), Integer.toString(book.getYearOfPublication()),
                     book.getCover(),button);
@@ -183,6 +194,7 @@ public class UserController extends AbstractController
             System.out.println(lt);
         tvLibrary.setEditable(true);
         tvLibrary.setItems(obsList);
+
     }
     public void showYourBooks(ActionEvent event)
     {
@@ -214,9 +226,12 @@ public class UserController extends AbstractController
     {
         List<String> covers = new ArrayList<>();
 
-        String path = Main.properties.getProperty("path.image");
+        String path;
         ImageView[] imageViews = new ImageView[5];
-        for (int i = 0; i < 4; i++) {
+        System.out.println("!!!!!!!!!!!!!!!");
+        System.out.println(books);
+        for (int i = 0; i <= 4 && i<books.size(); i++) {
+            path = Main.properties.getProperty("path.image");
             covers.add(books.get(i).getCover());
             Image image = null;
             if(covers.get(i).equals("Cover"))

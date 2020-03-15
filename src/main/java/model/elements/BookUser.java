@@ -23,7 +23,6 @@ public class BookUser
     {
         Session session = HibernateUtil.getSession();
         Transaction tx = session.beginTransaction();
-        System.out.println(this.getDate());
         session.save(this);
         tx.commit();
         session.close();
@@ -53,7 +52,7 @@ public class BookUser
     }
 
     @Column(name = "date")
-    @Temporal(TemporalType.DATE)
+   // @Temporal(TemporalType.DATE)
     public Date getDate()
     {
         return date;
@@ -84,7 +83,6 @@ public class BookUser
         this.book = book;
         this.user = user;
         this.date = new Date();
-        System.out.println("bookuser date "+date);
         this.rating = rating;
     }
 
