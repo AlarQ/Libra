@@ -4,7 +4,7 @@ This is a booktracker, for tracking books you read. It's a desktop application c
 
 ## Project status
 
-In progress.Adding some functionalities, fixing bugs.
+In progress. Adding some functionalities, fixing bugs.
 
 ## Built With
 
