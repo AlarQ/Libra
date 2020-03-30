@@ -1,6 +1,10 @@
 # Libra
 
-This is a booktracker, for tracking books you read. It's a desktop application crea
+This is a booktracker, for tracking books you read. It's a desktop application crea.
+
+## Project status
+
+In progress.Adding some functionalities, fixing bugs.
 
 ## Built With
 
