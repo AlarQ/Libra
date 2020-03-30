@@ -61,13 +61,41 @@
             <center>
                 <AnchorPane prefHeight="730.0" prefWidth="673.0" style="-fx-background-color: #302929;">
                     <children>
+                        <AnchorPane fx:id="apLibrary" prefHeight="714.0" prefWidth="633.0" style="-fx-background-color: grey;">
+                            <children>
+                                <SplitPane dividerPositions="0.0935" orientation="VERTICAL" prefHeight="714.0" prefWidth="636.0">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="486.0" style="-fx-background-color: #302929;">
+                                            <children>
+                                                <JFXButton fx:id="btnGoBackToLogin" alignment="CENTER_RIGHT" layoutX="488.0" layoutY="16.0" prefHeight="31.0" prefWidth="82.0" text="Lpg out" textOverrun="CENTER_ELLIPSIS" />
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="621.0" prefWidth="607.0">
+                                            <children>
+                                    <TableView fx:id="tvLibrary" layoutX="26.0" layoutY="62.0" prefHeight="565.0" prefWidth="601.0">
+                                      <columns>
+                                        <TableColumn fx:id="colAuthor" prefWidth="91.0" text="Author" />
+                                        <TableColumn fx:id="colTitle" prefWidth="148.0" text="Title" />
+                                        <TableColumn fx:id="colYear" prefWidth="94.0" text="Pub Year" />
+                                        <TableColumn fx:id="colCover" minWidth="0.0" prefWidth="122.0" text="Cover" />
+                                          <TableColumn fx:id="colAction" minWidth="0.0" prefWidth="128.0" text="Action" />
+                                      </columns>
+                                    </TableView>
+                                    <JFXButton fx:id="btnSearch" layoutX="412.0" layoutY="16.0" onAction="#showSearchResults" prefHeight="31.0" prefWidth="166.0" text="Search" />
+                                    <TextField fx:id="tfSearch" layoutX="26.0" layoutY="14.0" prefHeight="34.0" prefWidth="290.0" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
                         <AnchorPane fx:id="apSettings" prefHeight="714.0" prefWidth="634.0" style="-fx-background-color: grey;">
                             <children>
                                 <SplitPane dividerPositions="0.0935" orientation="VERTICAL" prefHeight="714.0" prefWidth="636.0">
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="486.0" style="-fx-background-color: #302929;">
                                             <children>
-                                                <JFXButton alignment="CENTER_RIGHT" layoutX="385.0" layoutY="11.0" text="Lpg out" />
+                                                <JFXButton alignment="CENTER_RIGHT" layoutX="500.0" layoutY="18.0" text="Lpg out" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="642.0" prefWidth="626.0">
@@ -88,7 +116,7 @@
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="486.0" style="-fx-background-color: #302929;">
                                             <children>
-                                                <JFXButton alignment="CENTER_RIGHT" layoutX="385.0" layoutY="11.0" onAction="#goBackToLogin" text="Lpg out" />
+                                                <JFXButton alignment="CENTER_RIGHT" layoutX="499.0" layoutY="16.0" onAction="#goBackToLogin" text="Lpg out" />
                                             </children>
                                         </AnchorPane>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="637.0" prefWidth="621.0">
@@ -167,34 +195,6 @@
                                                         </TabPane>
                                                     </children>
                                                 </AnchorPane>
-                                            </children>
-                                        </AnchorPane>
-                                    </items>
-                                </SplitPane>
-                            </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="apLibrary" prefHeight="714.0" prefWidth="633.0" style="-fx-background-color: grey;">
-                            <children>
-                                <SplitPane dividerPositions="0.0935" orientation="VERTICAL" prefHeight="714.0" prefWidth="636.0">
-                                    <items>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="90.0" prefWidth="486.0" style="-fx-background-color: #302929;">
-                                            <children>
-                                                <JFXButton fx:id="btnGoBackToLogin" alignment="CENTER_RIGHT" layoutX="439.0" layoutY="16.0" prefWidth="136.0" text="Lpg out" textOverrun="CENTER_ELLIPSIS" />
-                                            </children>
-                                        </AnchorPane>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="621.0" prefWidth="607.0">
-                                            <children>
-                                    <TableView fx:id="tvLibrary" layoutX="21.0" layoutY="59.0" prefHeight="565.0" prefWidth="601.0">
-                                      <columns>
-                                        <TableColumn fx:id="colAuthor" prefWidth="91.0" text="Author" />
-                                        <TableColumn fx:id="colTitle" prefWidth="148.0" text="Title" />
-                                        <TableColumn fx:id="colYear" prefWidth="94.0" text="Pub Year" />
-                                        <TableColumn fx:id="colCover" minWidth="0.0" prefWidth="122.0" text="Cover" />
-                                          <TableColumn fx:id="colAction" minWidth="0.0" prefWidth="128.0" text="Action" />
-                                      </columns>
-                                    </TableView>
-                                    <JFXButton fx:id="btnSearch" layoutX="412.0" layoutY="16.0" onAction="#showSearchResults" prefHeight="31.0" prefWidth="166.0" text="Search" />
-                                    <TextField fx:id="tfSearch" layoutX="26.0" layoutY="14.0" prefHeight="34.0" prefWidth="290.0" />
                                             </children>
                                         </AnchorPane>
                                     </items>

@@ -1,1 +1,12 @@
-- format daty w book_user
+-->
+    public boolean isOwned(Book book)
+    {
+        books = this.getBooks();
+        for (BookUser b : books) {
+            //change it using equals
+            if (b.getBook().getISBN().equals(book.getISBN()))
+                return true;
+        }
+        return false;
+    }
+-->
