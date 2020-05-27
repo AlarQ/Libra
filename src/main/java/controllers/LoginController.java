@@ -24,76 +24,42 @@ public class LoginController extends AbstractController
 {
     private LoginValidation loginModel = new LoginValidation();
 
-    @FXML private Label isConnected;
-    @FXML private TextField txtUserName;
-    @FXML private TextField txtPassword;
-    @FXML private Label lblRegister;
-    @FXML private Button btnRegister;
-    @FXML private Button btnLogin;
+    @FXML
+    private Label isConnected;
+    @FXML
+    private TextField txtUserName;
+    @FXML
+    private TextField txtPassword;
+    @FXML
+    private Label lblRegister;
+    @FXML
+    private Button btnRegister;
+    @FXML
+    private Button btnLogin;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 
-    public void createAccount(ActionEvent event) throws IOException
-    {
+    public void createAccount(ActionEvent event) throws IOException {
         new AppViewHandler().launchRegisterWindow();
     }
 
-    public void retrievePassword() throws IOException
-    {
+    public void retrievePassword() throws IOException {
         new AppViewHandler().launchRetrieveWindow();
     }
 
 
-    public void loginButtonClicked() throws IOException, SQLException
-    {
+    public void loginButtonClicked() throws IOException, SQLException {
         if (LoginValidation.isValidLogin(txtUserName.getText(), txtPassword.getText())) {
             new AppViewHandler().launchUserWindow();
         } else
             isConnected.setText("Incorrect login and/or password");
     }
 
-    public LoginController(ViewHandler viewHandler)
-    {
+    public LoginController(ViewHandler viewHandler) {
         super(viewHandler);
     }
 
-
-    public LoginValidation getLoginModel()
-    {
-        return loginModel;
-    }
-
-    public Label getIsConnected()
-    {
-        return isConnected;
-    }
-
-    public TextField getTxtUserName()
-    {
-        return txtUserName;
-    }
-
-    public TextField getTxtPassword()
-    {
-        return txtPassword;
-    }
-
-    public Label getLblRegister()
-    {
-        return lblRegister;
-    }
-
-    public Button getBtnRegister()
-    {
-        return btnRegister;
-    }
-
-    public Button getBtnLogin()
-    {
-        return btnLogin;
-    }
 }

@@ -1,7 +1,6 @@
 package model.elements;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import javafx.scene.control.Alert;
+import lombok.Data;
 import model.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -11,79 +10,68 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
+@Data
 @Table(name = "user")
 public class User
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private int userId;
+
+    @Column(name = "login")
     private String login;
+    @Column(name = "password")
     private String password;
+    @Column(name = "email")
     private String email;
+    @Column(name = "add_date")
     private Date addDate;
+    @Column(name = "admin")
     private Byte admin;
+    @OneToMany(
+            mappedBy = "user",
+            targetEntity = BookUser.class,
+            fetch = FetchType.EAGER
+    )
     private List<BookUser> books = new ArrayList<>();
 
-    public List<Book> lastAddedBooks()
-    {
-        Map<Book, Date> result = new HashMap<>();
+    public List<Book> lastAddedBooks() {
+        Map<Book, Date> result;
         result = books.stream().collect(
                 Collectors.toMap(BookUser::getBook, BookUser::getDate));
 
-        Comparator<Map.Entry<Book, Date>> valueComparator = new Comparator<Map.Entry<Book,Date>>() {
-
-            @Override
-            public int compare(Map.Entry<Book, Date> e1, Map.Entry<Book, Date> e2) {
-                Date v1 = e1.getValue();
-                Date v2 = e2.getValue();
-                return v2.compareTo(v1);
-            }
+        Comparator<Map.Entry<Book, Date>> valueComparator = (e1, e2) -> {
+            Date v1 = e1.getValue();
+            Date v2 = e2.getValue();
+            return v2.compareTo(v1);
         };
 
         Set<Map.Entry<Book, Date>> entries = result.entrySet();
-
-        // Sort method needs a List, so let's first convert Set to List in Java
         List<Map.Entry<Book, Date>> listOfEntries = new ArrayList<Map.Entry<Book, Date>>(entries);
-
-        // sorting HashMap by values using comparator
         Collections.sort(listOfEntries, valueComparator);
 
-        LinkedHashMap<Book, Date> sortedByValue = new LinkedHashMap<Book, Date>(listOfEntries.size());
-
-        // copying entries from List to Map
+        LinkedHashMap<Book, Date> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
         List<Book> lastAdded = new ArrayList<>();
 
-        for(Map.Entry<Book, Date> entry : listOfEntries){
+        for (Map.Entry<Book, Date> entry : listOfEntries) {
             sortedByValue.put(entry.getKey(), entry.getValue());
             lastAdded.add(entry.getKey());
         }
-
-        for (Book b: lastAdded)
-            System.out.println(b);
-
-        /**
-        System.out.println("HashMap after sorting entries by values ");
-        Set<Map.Entry<Book, Date>> entrySetSortedByValue = sortedByValue.entrySet();
-
-        for(Map.Entry<Book, Date> mapping : entrySetSortedByValue){
-            System.out.println(mapping.getKey() + " ==> " + mapping.getValue());
-        }
-         */
-         return lastAdded;
+        return lastAdded;
     }
 
-    public boolean deleteUser(String login)
-    {
+    public boolean deleteUser(String login) {
         List result;
-
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
         Query quer = session.createQuery("FROM User u WHERE u.login=:login");
         quer.setParameter("login", login);
         result = quer.getResultList();
-        System.out.println(result.size());
         session.getTransaction().commit();
         session.close();
-        if(result.size()>0) {
+        if (result.size() > 0) {
             Session session1 = HibernateUtil.getSession();
             session1.beginTransaction();
             Query query = session1.createQuery("delete FROM User u " +
@@ -91,71 +79,45 @@ public class User
             int res = query.executeUpdate();
             session1.getTransaction().commit();
             session1.close();
-            return res>0;
+            return res > 0;
         }
         return false;
     }
 
-    public List<Book> topRatedBooks()
-    {
-        Map<Book, Float> result = new HashMap<>();
-        result = books.stream().collect(
+    public List<Book> topRatedBooks() {
+        Map<Book, Float> bookToRatingMap;
+        bookToRatingMap = books.stream().collect(
                 Collectors.toMap(BookUser::getBook, BookUser::getRating));
 
-        for (Book b: result.keySet())
-            System.out.println(b);
+        Set<Map.Entry<Book, Float>> entries = bookToRatingMap.entrySet();
+        List<Map.Entry<Book, Float>> listOfEntries = new ArrayList<>(entries);
+        List<Map.Entry<Book, Float>> sortedListOfEntries = listOfEntries.stream()
+                .sorted((e1,e2)->e2.getValue().compareTo(e1.getValue()))
+                .collect(Collectors.toList());
 
-        Comparator<Map.Entry<Book, Float>> valueComparator = new Comparator<Map.Entry<Book,Float>>() {
-
-            @Override
-            public int compare(Map.Entry<Book, Float> e1, Map.Entry<Book, Float> e2) {
-                Float v1 = e1.getValue();
-                Float v2 = e2.getValue();
-                return v2.compareTo(v1);
-
-            }
-        };
-
-        Set<Map.Entry<Book, Float>> entries = result.entrySet();
-
-        // Sort method needs a List, so let's first convert Set to List in Java
-        List<Map.Entry<Book, Float>> listOfEntries = new ArrayList<Map.Entry<Book, Float>>(entries);
-
-        // sorting HashMap by values using comparator
-        Collections.sort(listOfEntries, valueComparator);
-
-        LinkedHashMap<Book, Float> sortedByValue = new LinkedHashMap<Book, Float>(listOfEntries.size());
-
-        // copying entries from List to Map
+        LinkedHashMap<Book, Float> sortedBookToRatingMap = new LinkedHashMap<>(sortedListOfEntries.size());
         List<Book> topRated = new ArrayList<>();
 
-        for(Map.Entry<Book, Float> entry : listOfEntries){
-            sortedByValue.put(entry.getKey(), entry.getValue());
+        for (Map.Entry<Book, Float> entry : sortedListOfEntries) {
+            sortedBookToRatingMap.put(entry.getKey(), entry.getValue());
             topRated.add(entry.getKey());
         }
-
-         System.out.println("HashMap after sorting entries by values ");
-         Set<Map.Entry<Book, Float>> entrySetSortedByValue = sortedByValue.entrySet();
-
-         for(Map.Entry<Book, Float> mapping : entrySetSortedByValue){
-         System.out.println(mapping.getKey() + " ==> " + mapping.getValue());
-         }
-
+        Set<Map.Entry<Book, Float>> entrySetSortedByValue = sortedBookToRatingMap.entrySet();
+        for (Map.Entry<Book, Float> mapping : entrySetSortedByValue) {
+            System.out.println(mapping.getKey() + " ==> " + mapping.getValue());
+        }
         return topRated;
     }
 
-    public void addUser()
-    {
+    public void addUser() {
         Session session = HibernateUtil.getSession();
         Transaction tx = session.beginTransaction();
         session.save(this);
         tx.commit();
         session.close();
-        System.out.println("user added");
     }
 
-    public static User getUserByEmail(String email)
-    {
+    public static User getUserByEmail(String email) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -170,8 +132,7 @@ public class User
         else return null;
     }
 
-    public boolean isOwned(Book book)
-    {
+    public boolean isOwned(Book book) {
         books = this.getBooks();
         for (BookUser b : books) {
             //change it using equals
@@ -181,8 +142,7 @@ public class User
         return false;
     }
 
-    public void addBook(Book book)
-    {
+    public void addBook(Book book) {
         if (books == null)
             books = new ArrayList<>();
         {
@@ -192,26 +152,18 @@ public class User
         }
     }
 
-    @OneToMany(
-            mappedBy = "user",
-            targetEntity = BookUser.class,
-            fetch = FetchType.EAGER
-    )
-    public List<BookUser> getBooks()
-    {
+
+    public List<BookUser> getBooks() {
         return books;
     }
 
     //skoro nie pozwala na brak pól dla ktorych sa gettersy
     //to coś jest nie tak z budową klasy
-    public int retNumberOfBooks()
-    {
+    public int retNumberOfBooks() {
         return books.size();
     }
 
-    public String retFavoriteAuthor()
-    {
-        //za pomocą stramu zrobić
+    public String retFavoriteAuthor() {
         if (!books.isEmpty()) {
             List<String> authors = books.stream().map(b -> b.getBook().getAuthor()).collect(Collectors.toList());
 
@@ -223,7 +175,7 @@ public class User
             int c = 0;
             long maxValueInMap = (Collections.max(occurrences.values()));
             for (Map.Entry<String, Long> entry : occurrences.entrySet()) {
-                if (entry.getValue() == maxValueInMap & c<2) {
+                if (entry.getValue() == maxValueInMap & c < 2) {
                     favorites.add(entry.getKey());
                     c++;
                 }
@@ -242,111 +194,16 @@ public class User
         return "";
     }
 
-    @Transient
-    public boolean isAdmin()
-    {
-        return admin == 1;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    public int getUserId()
-    {
-        return userId;
-    }
-
-    @Column(name = "admin")
-    public Byte getAdmin()
-    {
-        return admin;
-    }
-
-    @Column(name = "email")
-    public String getEmail()
-    {
-        return email;
-    }
-
-    @Column(name = "login")
-    public String getLogin()
-    {
-        return login;
-    }
-
-    @Column(name = "add_date")
-    public Date getAddDate()
-    {
-        return addDate;
-    }
-
-    @Column(name = "password")
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public User()
-    {
+    public User() {
         this.admin = 0;
     }
 
-    public User(String login, String password, String email)
-    {
+    public User(String login, String password, String email) {
         this.login = login;
         this.password = password;
         this.email = email;
         this.addDate = new Date();
         this.admin = 0;
-    }
-
-    public void setLogin(String login)
-    {
-        this.login = login;
-    }
-
-    public void setUserId(int userID)
-    {
-        this.userId = userID;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
-
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
-
-    public void setAddDate(Date addDate)
-    {
-        this.addDate = addDate;
-    }
-
-    public void setBooks(List<BookUser> books)
-    {
-        this.books = books;
-    }
-
-    public void setAdmin(Byte admin)
-    {
-        this.admin = admin;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "User{" +
-                "userId=" + userId +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", addDate=" + addDate +
-                ", admin=" + admin +
-                ", books=" + books +
-                '}';
     }
 }
 

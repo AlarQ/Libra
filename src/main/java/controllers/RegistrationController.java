@@ -2,26 +2,18 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import model.Main;
 import model.elements.User;
-import model.validations.LoginValidation;
 import model.validations.RegistrationValidation;
 import windows_launchers.AppViewHandler;
 import windows_launchers.ViewHandler;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class RegistrationController extends AbstractController
@@ -43,22 +35,19 @@ public class RegistrationController extends AbstractController
     @FXML
     private Button btnBackToLogin;
 
-    public RegistrationController(ViewHandler viewHandler)
-    {
+    public RegistrationController(ViewHandler viewHandler) {
         super(viewHandler);
     }
 
 
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(URL location, ResourceBundle resources) {
         btnAddUser.setOnAction(this::confirmRegistration);
         btnBackToLogin.setOnAction(this::goBackToLogin);
     }
 
 
-    public void confirmRegistration(ActionEvent event)
-    {
+    public void confirmRegistration(ActionEvent event) {
         //dodać przypoadek jak login jest za krótki
         User user = new User(txtLogin.getText(), txtPassword.getText(), txtEmail.getText());
         RegistrationValidation model = new RegistrationValidation(user);
@@ -69,7 +58,7 @@ public class RegistrationController extends AbstractController
         //login is valid
         if (valid[0])
             lblLogin.setText("Login correct!");
-        else{
+        else {
             lblLogin.setText("User exist, chaneg login");
             flag = false;
         }
@@ -85,7 +74,7 @@ public class RegistrationController extends AbstractController
         //email is valid
         if (valid[2])
             lblEmail.setText("Email correct!");
-        else{
+        else {
             lblEmail.setText("Email is not valid!");
             flag = false;
         }
@@ -99,8 +88,7 @@ public class RegistrationController extends AbstractController
         }
     }
 
-    private void finalizeReg(ActionEvent event)
-    {
+    private void finalizeReg(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Registration");
         alert.setContentText("You registered successfully!!!");
@@ -108,8 +96,7 @@ public class RegistrationController extends AbstractController
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
-    private void showPassAlert()
-    {
+    private void showPassAlert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Hints");
         alert.setHeaderText("Registration rules");
@@ -124,8 +111,7 @@ public class RegistrationController extends AbstractController
         alert.showAndWait();
     }
 
-    public void goBackToLogin(ActionEvent event)
-    {
+    public void goBackToLogin(ActionEvent event) {
         try {
             new AppViewHandler().launchLoginWindow();
         } catch (IOException e) {

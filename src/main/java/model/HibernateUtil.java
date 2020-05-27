@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.control.Alert;
 import model.elements.Book;
 import model.elements.BookUser;
 import model.elements.User;
@@ -10,13 +11,14 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import java.util.logging.Level;
+
 public class HibernateUtil
 {
-
     private static SessionFactory sessionFactory = null;
 
-    public static void loadSessionFactory()
-    {
+    public static void loadSessionFactory() {
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         configuration.addAnnotatedClass(Book.class);
@@ -26,23 +28,19 @@ public class HibernateUtil
         sessionFactory = configuration.buildSessionFactory(srvcReg);
     }
 
-    public static Session getSession() throws HibernateException
-    {
+    public static Session getSession() throws HibernateException {
         Session session = null;
         try {
             session = sessionFactory.openSession();
         } catch (Throwable t) {
-            System.out.println("Exception while getting session.. ");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Exception while getting session");
+            alert.showAndWait();
             t.printStackTrace();
         }
         if (session == null) {
             System.out.println("session is discovered null");
         }
         return session;
-    }
-
-    public static SessionFactory getSessionFactory()
-    {
-        return sessionFactory;
     }
 }

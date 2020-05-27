@@ -8,8 +8,7 @@ import java.util.List;
 
 public class Exist
 {
-    public static boolean doesEmailExist(String email)
-    {
+    public static boolean doesEmailExist(String email) {
         List result;
         User actualUser;
         Session session = HibernateUtil.getSession();

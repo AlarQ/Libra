@@ -22,8 +22,7 @@ public class RegistrationValidation
      * Does not contain space, tab, etc.
      */
 
-    public static boolean isLoginValid(String login)
-    {
+    public static boolean isLoginValid(String login) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
@@ -36,8 +35,7 @@ public class RegistrationValidation
         return result.isEmpty();
     }
 
-    public boolean isPasswordValid(User user)
-    {
+    public boolean isPasswordValid(User user) {
         if (user.getPassword().matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{5,}$"))
             return true;
         else {
@@ -46,8 +44,7 @@ public class RegistrationValidation
         }
     }
 
-    public boolean isEmailValid(User user)
-    {
+    public boolean isEmailValid(User user) {
         EmailValidator emailValidator = EmailValidator.getInstance();
         if (emailValidator.isValid(user.getEmail()))
             return true;
@@ -56,9 +53,8 @@ public class RegistrationValidation
         return false;
     }
 
-    public boolean[] whatIsValid()
-    {
-        boolean[] valid = {true,true,true};
+    public boolean[] whatIsValid() {
+        boolean[] valid = {true, true, true};
         if (!RegistrationValidation.isLoginValid(user.getLogin()))
             valid[0] = false;
 
@@ -71,8 +67,7 @@ public class RegistrationValidation
         return valid;
     }
 
-    public RegistrationValidation(User user)
-    {
+    public RegistrationValidation(User user) {
         this.user = user;
     }
 }

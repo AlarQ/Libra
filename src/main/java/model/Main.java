@@ -15,54 +15,43 @@ public class Main extends Application
     private static String css;
     public static Properties properties = new Properties();
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         HibernateUtil.loadSessionFactory();
-        System.out.println("***********************************************************************");
         initProperties();
-        System.out.println(properties.getProperty("path.image"));
-
         launch(args);
-
-        System.out.println(properties.getProperty("path.image"));
     }
 
     @Override
-    public void start(Stage prStage) throws Exception
-    {
+    public void start(Stage prStage) throws Exception {
         this.primaryStage = prStage;
         new AppViewHandler()
                 .launchLoginWindow();
 
     }
 
-    public static void initProperties()
-    {
+    public static void initProperties() {
         try {
             String fileName = "src/main/resources/config.properties";
             InputStream input =
                     new FileInputStream(fileName);
             if (input == null) {
-                System.out.println("unable to find "+fileName);
+                System.out.println("unable to find " + fileName);
             }
             properties.load(input);
-        }catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    public static Stage getPrimaryStage()
-    {
+    public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    public static void setCss(String css_)
-    {
+    public static void setCss(String css_) {
         css = css_;
     }
 
-    public static String getCss(){return css;}
-
-
+    public static String getCss() {
+        return css;
+    }
 }

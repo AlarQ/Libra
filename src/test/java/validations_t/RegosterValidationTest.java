@@ -6,8 +6,7 @@ public class RegosterValidationTest
 {
     //password validation tests
     @Test
-    public void shouldHaveAtLeast8Symbols()
-    {
+    public void shouldHaveAtLeast8Symbols() {
 
     }
 }

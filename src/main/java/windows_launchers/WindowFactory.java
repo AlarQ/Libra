@@ -5,7 +5,8 @@ import controllers.RegistrationController;
 import controllers.RetrievePasswordController;
 import controllers.UserController;
 
-public enum WindowFactory {
+public enum WindowFactory
+{
     LOGIN {
         @Override
         public AbstractWindow createWindow(ViewHandler viewHandler) {

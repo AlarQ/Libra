@@ -5,13 +5,11 @@ import controllers.AbstractController;
 public class UserWindow extends AbstractWindow
 {
     @Override
-    protected String fxmlFileName()
-    {
+    protected String fxmlFileName() {
         return "UserAccount.fxml";
     }
 
-    public UserWindow(AbstractController controller)
-    {
+    public UserWindow(AbstractController controller) {
         super(controller);
     }
 }

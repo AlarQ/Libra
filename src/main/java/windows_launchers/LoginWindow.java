@@ -5,13 +5,11 @@ import controllers.AbstractController;
 public class LoginWindow extends AbstractWindow
 {
     @Override
-    protected String fxmlFileName()
-    {
+    protected String fxmlFileName() {
         return "Login.fxml";
     }
 
-    public LoginWindow(AbstractController controller)
-    {
+    public LoginWindow(AbstractController controller) {
         super(controller);
     }
 }

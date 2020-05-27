@@ -4,14 +4,12 @@ import controllers.AbstractController;
 
 public class RegisterWindow extends AbstractWindow
 {
-    public RegisterWindow(AbstractController controller)
-    {
+    public RegisterWindow(AbstractController controller) {
         super(controller);
     }
 
     @Override
-    protected String fxmlFileName()
-    {
+    protected String fxmlFileName() {
         return "Registration.fxml";
     }
 }

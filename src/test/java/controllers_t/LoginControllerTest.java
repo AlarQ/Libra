@@ -14,8 +14,7 @@ public class LoginControllerTest
     }
 
     @Test
-    public void shouldReturnTrueForExistingUser()
-    {
+    public void shouldReturnTrueForExistingUser() {
         String login = "a";
         String pass = "b";
         try {

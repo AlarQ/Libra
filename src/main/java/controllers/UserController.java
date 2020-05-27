@@ -3,13 +3,11 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -17,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import model.HibernateUtil;
-import model.Main;
 import model.elements.Book;
 import model.elements.BookUser;
 import model.elements.LibraryTable;
@@ -28,67 +25,103 @@ import windows_launchers.AppViewHandler;
 import windows_launchers.ViewHandler;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserController extends AbstractController
 {
-    @FXML private AnchorPane apYourBooks;
-    @FXML private AnchorPane apLibrary;
-    @FXML private AnchorPane apSettings;
-    @FXML private Button btnYourBooks;
-    @FXML private Button btnLibrary;
-    @FXML private TextField txtAuthor;
-    @FXML private TextField txtTitle;
-    @FXML private TextField txtPublisher;
-    @FXML private TextField txtYearOfPublication;
-    @FXML private TextField txtGenre;
-    @FXML private TextField txtISBN;
-    @FXML private TextField txtRating;
-    @FXML private Button btnAddCover;
-    @FXML private Button btnCancel;
-    @FXML private Button btnConfirm;
-    @FXML private Label lblAuthor;
-    @FXML private Label lblTitle;
-    @FXML private Label lblPublisher;
-    @FXML private Label lblyearOfPublication;
-    @FXML private Label lblGenre;
-    @FXML private Label lblISBN;
-    @FXML private Label lblCover;
-    @FXML private Label lblRating;
-    @FXML private Label lblNumberOfBooks;
-    @FXML private Label lblFavAuthor;
-    @FXML private GridPane gpLastAdded;
-    @FXML private GridPane gpTopRatedByYou;
-    @FXML private TableColumn<String, LibraryTable> colAuthor;
-    @FXML private TableColumn<String, LibraryTable> colTitle;
-    @FXML private TableColumn<String, LibraryTable> colYear;
-    @FXML private TableColumn<String, LibraryTable> colCover;
-    @FXML private TableColumn<LibraryTable,Button> colAction;
-    @FXML private Button btnSearch;
-    @FXML private TextField tfSearch;
-    @FXML private TableView<LibraryTable> tvLibrary = new TableView<LibraryTable>();
-    @FXML private Button btnGoBackToLogin;
-    @FXML private Button btnDeleteUser;
-    @FXML private TextField txtDeleteUser;
-    @FXML private Button btnSettings;
+    @FXML
+    private AnchorPane apYourBooks;
+    @FXML
+    private AnchorPane apLibrary;
+    @FXML
+    private AnchorPane apSettings;
+    @FXML
+    private Button btnYourBooks;
+    @FXML
+    private Button btnLibrary;
+    @FXML
+    private TextField txtAuthor;
+    @FXML
+    private TextField txtTitle;
+    @FXML
+    private TextField txtPublisher;
+    @FXML
+    private TextField txtYearOfPublication;
+    @FXML
+    private TextField txtGenre;
+    @FXML
+    private TextField txtISBN;
+    @FXML
+    private TextField txtRating;
+    @FXML
+    private Button btnAddCover;
+    @FXML
+    private Button btnCancel;
+    @FXML
+    private Button btnConfirm;
+    @FXML
+    private Label lblAuthor;
+    @FXML
+    private Label lblTitle;
+    @FXML
+    private Label lblPublisher;
+    @FXML
+    private Label lblyearOfPublication;
+    @FXML
+    private Label lblGenre;
+    @FXML
+    private Label lblISBN;
+    @FXML
+    private Label lblCover;
+    @FXML
+    private Label lblRating;
+    @FXML
+    private Label lblNumberOfBooks;
+    @FXML
+    private Label lblFavAuthor;
+    @FXML
+    private GridPane gpLastAdded;
+    @FXML
+    private GridPane gpTopRatedByYou;
+    @FXML
+    private TableColumn<String, LibraryTable> colAuthor;
+    @FXML
+    private TableColumn<String, LibraryTable> colTitle;
+    @FXML
+    private TableColumn<String, LibraryTable> colYear;
+    @FXML
+    private TableColumn<String, LibraryTable> colCover;
+    @FXML
+    private TableColumn<LibraryTable, Button> colAction;
+    @FXML
+    private Button btnSearch;
+    @FXML
+    private TextField tfSearch;
+    @FXML
+    private TableView<LibraryTable> tvLibrary = new TableView<LibraryTable>();
+    @FXML
+    private Button btnGoBackToLogin;
+    @FXML
+    private Button btnDeleteUser;
+    @FXML
+    private TextField txtDeleteUser;
+    @FXML
+    private Button btnSettings;
     private static User actualUser;
     private ObservableList<LibraryTable> obsList = FXCollections.observableArrayList();
 
-    public UserController(ViewHandler viewHandler)
-    {
+    public UserController(ViewHandler viewHandler) {
         super(viewHandler);
     }
-    public UserController(){};
-    
+
+    public UserController() {
+    }
+
     @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    public void initialize(URL location, ResourceBundle resources) {
         setBtnOnAction();
         apYourBooks.toFront();
         initColumns();
@@ -97,12 +130,11 @@ public class UserController extends AbstractController
         actualUser.lastAddedBooks();
         showLastAddedBooks();
         actualUser.topRatedBooks();
-      showTopRatedByYou();
+        showTopRatedByYou();
 
     }
 
-    public void setBtnOnAction()
-    {
+    public void setBtnOnAction() {
         btnGoBackToLogin.setOnAction(this::goBackToLogin);
         btnSearch.setOnAction(this::showSearchResults);
         btnYourBooks.setOnAction(this::showYourBooks);
@@ -114,34 +146,35 @@ public class UserController extends AbstractController
         btnDeleteUser.setOnAction(this::deleteUser);
     }
 
-    private void deleteUser(ActionEvent event)
-    {
-        if(actualUser.getAdmin()==1)
-        {
+    public void initColumns() {
+        colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
+        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
+        colCover.setCellValueFactory(new PropertyValueFactory<>("cover"));
+        colAction.setCellValueFactory(new PropertyValueFactory<>("addBook"));
+    }
+
+    private void deleteUser(ActionEvent event) {
+        if (actualUser.getAdmin() == 1) {
             String login = txtDeleteUser.getText();
             boolean res = actualUser.deleteUser(login);
-            if(res)
-            {
+            if (res) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("User "+login+" deleted");
+                alert.setContentText("User " + login + " deleted");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("User " + login + " doesn't exist");
                 alert.showAndWait();
             }
-            else
-            {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("User "+login+" doesn't exist");
-                alert.showAndWait();
-            }
-        }else
-        {
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("You're not admin user. You can't delete other users!");
             alert.showAndWait();
         }
     }
 
-    public void showSearchResults(ActionEvent event)
-    {
+    public void showSearchResults(ActionEvent event) {
         tvLibrary.getItems().clear();
         String find = tfSearch.getText();
         List<Book> result;
@@ -157,29 +190,21 @@ public class UserController extends AbstractController
         for (int i = 0; i < result.size(); i++) {
             Book book = result.get(i);
             Button button = new Button("Add book");
-            button.setOnAction(new EventHandler<ActionEvent>()
-            {
-                @Override
-                public void handle(ActionEvent e)
-                {
-                    System.out.println("adding book.....");
-                    if (!actualUser.isOwned(book))
-                    {
-                        BookUser bookUser = new BookUser(book, actualUser, 5);
-                        try
-                        {
-                            Thread.sleep(2000);
-                        } catch (InterruptedException ex)
-                        {
-                            ex.printStackTrace();
-                        }
-                        bookUser.saveBookUser();
+            button.setOnAction(e -> {
+                System.out.println("adding book.....");
+                if (!actualUser.isOwned(book)) {
+                    BookUser bookUser = new BookUser(book, actualUser, 5);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
                     }
+                    bookUser.saveBookUser();
                 }
             });
             LibraryTable libTab = new LibraryTable(book.getAuthor(),
                     book.getTitle(), Integer.toString(book.getYearOfPublication()),
-                    book.getCover(),button);
+                    book.getCover(), button);
             obsList.add(libTab);
         }
 
@@ -196,62 +221,45 @@ public class UserController extends AbstractController
         tvLibrary.setItems(obsList);
 
     }
-    public void showYourBooks(ActionEvent event)
-    {
+
+    public void showYourBooks(ActionEvent event) {
         apYourBooks.toFront();
     }
 
-    public void showLibrary(ActionEvent e)
-    {
+    public void showLibrary(ActionEvent e) {
         apLibrary.toFront();
     }
 
-    public void showSettings(ActionEvent event) { apSettings.toFront(); }
+    public void showSettings(ActionEvent event) {
+        apSettings.toFront();
+    }
 
-    public void showLastAddedBooks()
-    {
+    public void showLastAddedBooks() {
         List<Book> lastAdded = actualUser.lastAddedBooks();
-        if(lastAdded.size()>0)
-            prepareGridPane(gpLastAdded,lastAdded);
+        if (lastAdded.size() > 0)
+            prepareGridPane(gpLastAdded, lastAdded);
     }
 
-    public void showTopRatedByYou()
-    {
+    public void showTopRatedByYou() {
         List<Book> topRated = actualUser.topRatedBooks();
-        if(topRated.size()>0)
-        prepareGridPane(gpTopRatedByYou,topRated);
+        if (topRated.size() > 0)
+            prepareGridPane(gpTopRatedByYou, topRated);
     }
 
-    public void prepareGridPane(GridPane pane, List<Book> books)
-    {
-        List<String> covers = new ArrayList<>();
-
+    public void prepareGridPane(GridPane pane, List<Book> books) {
+        String actualCover;
         String path;
         ImageView[] imageViews = new ImageView[5];
-        System.out.println("!!!!!!!!!!!!!!!");
-        System.out.println(books);
-        for (int i = 0; i <= 4 && i<books.size(); i++) {
-            path = Main.properties.getProperty("path.image");
-            covers.add(books.get(i).getCover());
-            Image image = null;
-            if(covers.get(i).equals("Cover"))
-                path = path+"Cover.png";
-            else
-                path =  path+covers.get(i);
-
-            try {
-                image = new Image(new FileInputStream(path));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            imageViews[i] = new ImageView(image);
+        for (int i = 0; i <= 4 && i < books.size(); i++) {
+            actualCover = books.get(i).getCover();
+            System.out.println(actualCover);
+            imageViews[i] = LibraryTable.createCover(actualCover);
             imageViews[i].setFitHeight(100);
             imageViews[i].setFitWidth(100);
             imageViews[i].setPreserveRatio(false);
             GridPane.setConstraints(imageViews[i], i, 0);
             pane.getChildren().add(imageViews[i]);
-            if(covers.get(i).equals("Cover"))
-            {
+            if (actualCover.equals("Cover")) {
                 Label label = prepareDefaultBookLabel(books.get(i).getTitle());
                 label.setTextFill(Color.web("black"));
                 GridPane.setConstraints(label, i, 0);
@@ -260,17 +268,8 @@ public class UserController extends AbstractController
         }
     }
 
-    public void initColumns()
-    {
-        colAuthor.setCellValueFactory(new PropertyValueFactory<>("author"));
-        colTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-        colYear.setCellValueFactory(new PropertyValueFactory<>("year"));
-        colCover.setCellValueFactory(new PropertyValueFactory<>("cover"));
-        colAction.setCellValueFactory(new PropertyValueFactory<>("addBook"));
-    }
-    //GDZIE TO UMIESCIC
-    public Label prepareDefaultBookLabel(String text)
-    {
+
+    public Label prepareDefaultBookLabel(String text) {
         Label label = new Label(text);
         label.setTextFill(Color.web("#FFFFFF"));
         label.setWrapText(true);
@@ -280,14 +279,12 @@ public class UserController extends AbstractController
         return label;
     }
 
-    public void cancel(ActionEvent event)
-    {
+    public void cancel(ActionEvent event) {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
     //returns number of not-empty fields
-    public boolean checkTextFields()
-    {
+    public boolean checkTextFields() {
         if (txtTitle.getText().trim().equals("")) {
             lblTitle.setText("This field can't be empty!");
             return false;
@@ -295,8 +292,7 @@ public class UserController extends AbstractController
         return true;
     }
 
-    public void confirm(ActionEvent event)
-    {
+    public void confirm(ActionEvent event) {
         int year;
         if (txtYearOfPublication.getText().equals(""))
             year = -1;
@@ -315,7 +311,7 @@ public class UserController extends AbstractController
                 rating);
 
         boolean flag = true;
-        if (Book.isBookExistByTitle(book.getTitle())) {
+        if (Book.isBookAdded(book.getTitle())) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Book exist in db! You can find it in library :)");
             alert.showAndWait();
@@ -335,8 +331,7 @@ public class UserController extends AbstractController
         lblNumberOfBooks.setText(Integer.toString(actualUser.retNumberOfBooks()));
     }
 
-    public void addCover(ActionEvent e)
-    {
+    public void addCover(ActionEvent e) {
         FileChooser fc = new FileChooser();
         File selectedfile = fc.showOpenDialog(null);
 
@@ -346,13 +341,11 @@ public class UserController extends AbstractController
             lblCover.setText("Not valid file!");
     }
 
-    public static void setActualUser(User acUser)
-    {
+    public static void setActualUser(User acUser) {
         actualUser = acUser;
     }
 
-    public void goBackToLogin(ActionEvent event)
-    {
+    public void goBackToLogin(ActionEvent event) {
         try {
             new AppViewHandler().launchLoginWindow();
         } catch (IOException e) {

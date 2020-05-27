@@ -3,11 +3,13 @@ package model.elements;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import lombok.Data;
 import model.Main;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+@Data
 public class LibraryTable
 {
     private String author;
@@ -15,8 +17,8 @@ public class LibraryTable
     private String year;
     private String cover;
     private Button addBook;
-    public LibraryTable(String author, String title, String year, String cover, Button addBook)
-    {
+
+    public LibraryTable(String author, String title, String year, String cover, Button addBook) {
         this.author = author;
         this.title = title;
         this.year = year;
@@ -24,10 +26,14 @@ public class LibraryTable
         this.addBook = addBook;
     }
 
-    public ImageView createCover(String cover)
-    {
+    //przenieśc to
+    public static ImageView createCover(String cover) {
         Image image = null;
-        String path = Main.properties.getProperty("path.image") + cover;
+        String path = Main.properties.getProperty("path.image");
+        if (cover.equals("Cover"))
+            path = path + "Cover.png";
+        else
+            path = path + cover;
         try {
             image = new Image(new FileInputStream(path));
         } catch (FileNotFoundException e) {
@@ -37,65 +43,4 @@ public class LibraryTable
         return imageView;
     }
 
-    public void setAuthor(String author)
-    {
-        this.author = author;
-    }
-
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
-
-    public void setYear(String year)
-    {
-        this.year = year;
-    }
-
-    public void setCover(String cover)
-    {
-        this.cover = cover;
-    }
-
-    public String getAuthor()
-    {
-        return author;
-    }
-
-    public String getTitle()
-    {
-        return title;
-    }
-
-    public String getYear()
-    {
-        return year;
-    }
-
-    public String getCover()
-    {
-        return cover;
-    }
-
-    public Button getAddBook()
-    {
-        return addBook;
-    }
-
-    public void setAddBook(Button addBook)
-    {
-        this.addBook = addBook;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "LibraryTable{" +
-                "author='" + author + '\'' +
-                ", title='" + title + '\'' +
-                ", year='" + year + '\'' +
-                ", cover='" + cover + '\'' +
-                ", addBook=" + addBook +
-                '}';
-    }
 }

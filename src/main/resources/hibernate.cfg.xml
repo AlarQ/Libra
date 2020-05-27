@@ -9,10 +9,11 @@
         </property>
 
         <property name="hibernate.connection.driver_class">
-            com.mysql.jdbc.Driver
+            com.mysql.cj.jdbc.Driver
         </property>
 
-        <!-- Assume test is the database name -->
+        <!--   <property name="show_sql">true</property> -->
+
 
         <property name="hibernate.connection.url">
             jdbc:mysql://localhost/libra?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC
@@ -25,7 +26,6 @@
         <property name="hibernate.connection.password">
             rootty
         </property>
-
 
 
     </session-factory>

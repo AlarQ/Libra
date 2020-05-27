@@ -5,13 +5,11 @@ import controllers.AbstractController;
 public class RetrieveWindow extends AbstractWindow
 {
     @Override
-    protected String fxmlFileName()
-    {
+    protected String fxmlFileName() {
         return "RetrievePassword.fxml";
     }
 
-    public RetrieveWindow(AbstractController controller)
-    {
+    public RetrieveWindow(AbstractController controller) {
         super(controller);
     }
 }

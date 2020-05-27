@@ -6,31 +6,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="407.0" prefWidth="381.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="407.0" prefWidth="381.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Button fx:id="btnAddUser" layoutX="97.0" layoutY="273.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="187.0" text="Add User">
+        <Button fx:id="btnAddUser" layoutX="97.0" layoutY="273.0" mnemonicParsing="false" prefHeight="34.0"
+                prefWidth="187.0" text="Add User">
             <font>
-                <Font size="20.0" />
+                <Font size="20.0"/>
             </font>
         </Button>
-        <TextField fx:id="txtLogin" layoutX="66.0" layoutY="51.0" prefHeight="28.0" prefWidth="250.0" promptText="Login" />
-        <TextField fx:id="txtPassword" layoutX="66.0" layoutY="134.0" prefHeight="28.0" prefWidth="250.0" promptText="Password" />
-        <TextField fx:id="txtEmail" layoutX="67.0" layoutY="220.0" prefHeight="28.0" prefWidth="250.0" promptText="Email" />
+        <TextField fx:id="txtLogin" layoutX="66.0" layoutY="51.0" prefHeight="28.0" prefWidth="250.0"
+                   promptText="Login"/>
+        <TextField fx:id="txtPassword" layoutX="66.0" layoutY="134.0" prefHeight="28.0" prefWidth="250.0"
+                   promptText="Password"/>
+        <TextField fx:id="txtEmail" layoutX="67.0" layoutY="220.0" prefHeight="28.0" prefWidth="250.0"
+                   promptText="Email"/>
         <Label fx:id="lblLogin" layoutX="151.0" layoutY="14.0" style="-fx-text-fill: white;" text="Set Login">
             <font>
-                <Font size="14.0" />
+                <Font size="14.0"/>
             </font>
         </Label>
         <Label fx:id="lblPassword" layoutX="134.0" layoutY="99.0" style="-fx-text-fill: white;" text="Set Password">
             <font>
-                <Font size="72.0" />
+                <Font size="72.0"/>
             </font>
         </Label>
-        <Label fx:id="lblEmail" layoutX="125.0" layoutY="179.0" style="-fx-text-fill: white;" text="Add Your Email" />
-      <Button fx:id="btnBackToLogin" layoutX="57.0" layoutY="339.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="269.0" text="Back to Login window">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+        <Label fx:id="lblEmail" layoutX="125.0" layoutY="179.0" style="-fx-text-fill: white;" text="Add Your Email"/>
+        <Button fx:id="btnBackToLogin" layoutX="57.0" layoutY="339.0" mnemonicParsing="false" prefHeight="39.0"
+                prefWidth="269.0" text="Back to Login window">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Button>
     </children>
 </AnchorPane>

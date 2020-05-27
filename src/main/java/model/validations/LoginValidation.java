@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.Query;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,31 +18,29 @@ public class LoginValidation
     Connection connection;
     private static User actualUser;
 
-    public LoginValidation()
-    {
+    public LoginValidation() {
     }
 
-    public static void setActualUser(User actualUser)
-    {
+    public static void setActualUser(User actualUser) {
         LoginValidation.actualUser = actualUser;
     }
 
-    public static User getActualUser()
-    {
+    public static User getActualUser() {
         return actualUser;
     }
 
-    public static boolean isValidLogin(String userName, String password) throws SQLException
-    {
+    public static boolean isValidLogin(String userName, String password) throws SQLException {
         List result;
 
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
 
-        result = session.createQuery("FROM User u " +
-                "WHERE u.login='" + userName +
-                "' AND u.password='" + password + "'")
-                .getResultList();
+        Query query = session.createQuery("FROM User u " +
+                "WHERE u.login=:userName " +
+                "AND u.password=:password");
+        query.setParameter("userName",userName);
+        query.setParameter("password",password);
+        result = query.getResultList();
 
         try {
             actualUser = (User) result.get(0);
@@ -49,8 +48,6 @@ public class LoginValidation
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No match in database");
         }
-        System.out.println(result.size());
-        System.out.println(actualUser);
 
         session.getTransaction().commit();
         session.close();

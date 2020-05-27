@@ -13,9 +13,13 @@ public abstract class AbstractController implements Initializable
     @Override
     public abstract void initialize(URL location, ResourceBundle resources);
 
-    public AbstractController(ViewHandler viewHandler)
-    {
+    public AbstractController(ViewHandler viewHandler) {
         this.viewHandler = viewHandler;
     }
-    public AbstractController(){viewHandler=null;};
+
+    public AbstractController() {
+        viewHandler = null;
+    }
+
+    ;
 }
